@@ -39,3 +39,8 @@ void Administrator::deleteFilm(Film _film) {
 void Administrator::showFilme() const {
 	FilmRepo.showFilme();
 }
+
+
+FilmRepository& Administrator::getFilmRepo() {
+	return this->FilmRepo;
+}

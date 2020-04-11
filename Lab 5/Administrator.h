@@ -21,5 +21,7 @@ public:
 	void deleteFilm(Film);
 
 	void showFilme() const;
+
+	FilmRepository& getFilmRepo();
 };
 

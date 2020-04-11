@@ -36,5 +36,11 @@ public:
 
 	// Returns a movie at a specified index in the list
 	Film getFilm_byIndex(int index) const;
+
+    // Shows the list of movies by genre
+	void showFilme_byGenre(string _genre, Film _film) const;
+
+    // Returns Number of Likes
+    double getLikes(Film _film) const;
 };
 

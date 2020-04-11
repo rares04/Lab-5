@@ -15,5 +15,8 @@ public:
 
 	// Testing Administrators functions
 	void testAdministrator();
+
+	// Testing User functions
+    void testUser();
 };
 

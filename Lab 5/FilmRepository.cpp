@@ -96,3 +96,17 @@ std::vector<Film> FilmRepository::getFilme() const {
 Film FilmRepository::getFilm_byIndex(int index) const {
 	return Filme[index];
 }
+
+void FilmRepository::showFilme_byGenre(string _genre, Film _film) const{
+    for(int i = 0; i < Filme.size(); i++) {
+        if (_film.getGenre() == _genre)
+            cout << Filme[i];
+    }
+}
+
+double FilmRepository::getLikes(Film _film) const{
+    for(int i = 0; i < Filme.size(); i++)
+        if(_film.getTitel() == Filme[i].getTitel() && _film.getJahr() == Filme[i].getJahr())
+            return _film.getLikes();
+    return 0;
+}

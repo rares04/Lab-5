@@ -9,6 +9,7 @@ int main() {
 	t.testDelete();
 	t.testUpdate();
 	t.testAdministrator();
+	t.testUser();
 
 	cout << "\nTest End\n\n";
 }

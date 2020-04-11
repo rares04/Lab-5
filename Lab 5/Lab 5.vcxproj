@@ -139,9 +139,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Film.cpp" />
+    <ClCompile Include="FilmRepository.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Film.h" />
+    <ClInclude Include="FilmRepository.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

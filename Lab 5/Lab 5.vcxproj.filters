@@ -18,9 +18,15 @@
     <ClCompile Include="Film.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="FilmRepository.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Film.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FilmRepository.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

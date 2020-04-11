@@ -22,5 +22,9 @@ public:
 	void deleteFilm(Film);
 
 	void showFilme() const;
+
+	std::vector<Film> getFilme() const;
+
+	Film getFilm_byIndex(int index) const;
 };
 

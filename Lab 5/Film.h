@@ -15,23 +15,23 @@ public:
 
 	string getTitel() const;
 
-	string setTitel(string _titel);
-
+	void setTitel(string _titel);
+	
 	string getGenre() const;
 
-	string setGenre(string _genre);
+	void setGenre(string _genre);
 
 	string getTrailer() const;
 
-	string setTrailer(string _trailer);
+	void setTrailer(string _trailer);
 
 	double getJahr() const;
 	
-	double setJahr(double _jahr);
+	void setJahr(double _jahr);
 
 	double getLikes() const;
 
-	double setLikes(double _likes);
+	void setLikes(double _likes);
 
 	friend std::ostream& operator << (std::ostream& out, const Film& f);
 };

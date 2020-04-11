@@ -15,7 +15,7 @@ string Film::getTitel() const {
 }
 
 
-string Film::setTitel(string _titel) {
+void Film::setTitel(string _titel) {
 	Titel = _titel;
 }
 
@@ -25,7 +25,7 @@ string Film::getGenre() const {
 }
 
 
-string Film::setGenre(string _genre) {
+void Film::setGenre(string _genre) {
 	Genre = _genre;
 }
 
@@ -35,7 +35,7 @@ string Film::getTrailer() const {
 }
 
 
-string Film::setTrailer(string _trailer) {
+void Film::setTrailer(string _trailer) {
 	Trailer = _trailer;
 }
 
@@ -45,7 +45,7 @@ double Film::getJahr() const {
 }
 
 
-double Film::setJahr(double _jahr) {
+void Film::setJahr(double _jahr) {
 	Jahr = _jahr;
 }
 
@@ -55,7 +55,7 @@ double Film::getLikes() const {
 }
 
 
-double Film::setLikes(double _likes) {
+void Film::setLikes(double _likes) {
 	Likes = _likes;
 }
 

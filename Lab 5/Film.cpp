@@ -69,3 +69,13 @@ std::ostream& operator << (std::ostream& out, const Film& f) {
 	out << "\n";
 	return out;
 }
+
+
+bool operator==(const Film& f1, const Film& f2) {
+	return (f1.Titel == f2.Titel && f1.Genre == f2.Genre && f1.Jahr == f2.Jahr && f1.Likes == f2.Likes && f1.Trailer == f2.Trailer);
+}
+
+
+bool operator!=(const Film& f1, const Film& f2) {
+	return !(f1 == f2);
+}

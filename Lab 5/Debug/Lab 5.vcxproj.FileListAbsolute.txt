@@ -1,0 +1,2 @@
+D:\Facultate\Semestrul 2\C++\Lab-5\Lab 5\Debug\Lab 5.exe
+D:\Facultate\Semestrul 2\C++\Lab-5\Lab 5\Debug\Lab 5.pdb

@@ -5,7 +5,7 @@
 
 using std::cout;
 
-
+// Movies on which the app will be tested
 Film f1("The Platform", "Horror, Sci-Fi, Thriller", 2019, 76190, "https://www.youtube.com/watch?v=RlfooqeZcdY");
 Film f2("The Maze Runner", "Action, Mysterym, Sci-Fi", 2014, 401481, "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
 Film f3("Zodiac", "Crime, Drama, Mystery", 2007, 424385, "https://www.youtube.com/watch?v=yNncHPl1UXg");
@@ -23,39 +23,17 @@ void Tests::testAdd() {
 	repo.addFilm(f4);
 	repo.addFilm(f5);
 	
+	// There should be 5 movies in the list now
 	assert(repo.getFilme().size() == 5);
 
-	assert(repo.getFilm_byIndex(0).getTitel() == "The Platform");
-	assert(repo.getFilm_byIndex(0).getGenre() == "Horror, Sci-Fi, Thriller");
-	assert(repo.getFilm_byIndex(0).getJahr() == 2019);
-	assert(repo.getFilm_byIndex(0).getLikes() == 76190);
-	assert(repo.getFilm_byIndex(0).getTrailer() == "https://www.youtube.com/watch?v=RlfooqeZcdY");
+	// Checking from each film from the list, that it's the same with the created one
+	assert(repo.getFilm_byIndex(0) == f1);
+	assert(repo.getFilm_byIndex(1) == f2);
+	assert(repo.getFilm_byIndex(2) == f3);
+	assert(repo.getFilm_byIndex(3) == f4);
+	assert(repo.getFilm_byIndex(4) == f5);
 
-	assert(repo.getFilm_byIndex(1).getTitel() == "The Maze Runner");
-	assert(repo.getFilm_byIndex(1).getGenre() == "Action, Mysterym, Sci-Fi");
-	assert(repo.getFilm_byIndex(1).getJahr() == 2014);
-	assert(repo.getFilm_byIndex(1).getLikes() == 401481);
-	assert(repo.getFilm_byIndex(1).getTrailer() == "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
-
-	assert(repo.getFilm_byIndex(2).getTitel() == "Zodiac");
-	assert(repo.getFilm_byIndex(2).getGenre() == "Crime, Drama, Mystery");
-	assert(repo.getFilm_byIndex(2).getJahr() == 2007);
-	assert(repo.getFilm_byIndex(2).getLikes() == 424385);
-	assert(repo.getFilm_byIndex(2).getTrailer() == "https://www.youtube.com/watch?v=yNncHPl1UXg");
-
-	assert(repo.getFilm_byIndex(3).getTitel() == "Shutter Island");
-	assert(repo.getFilm_byIndex(3).getGenre() == "Mystery, Thriller");
-	assert(repo.getFilm_byIndex(3).getJahr() == 2010);
-	assert(repo.getFilm_byIndex(3).getLikes() == 1065137);
-	assert(repo.getFilm_byIndex(3).getTrailer() == "https://www.youtube.com/watch?v=5iaYLCiq5RM");
-
-	assert(repo.getFilm_byIndex(4).getTitel() == "Se7en");
-	assert(repo.getFilm_byIndex(4).getGenre() == "Crime, Drama, Mystery");
-	assert(repo.getFilm_byIndex(4).getJahr() == 1995);
-	assert(repo.getFilm_byIndex(4).getLikes() == 1364614);
-	assert(repo.getFilm_byIndex(4).getTrailer() == "https://www.youtube.com/watch?v=znmZoVkCjpI");
-
-
+	// Testing Add - Checking the output of the function when same film will be added
 	repo.addFilm(f1);
 	repo.addFilm(f2);
 	repo.addFilm(f3);
@@ -79,21 +57,13 @@ void Tests::testDelete() {
 	repo.deleteFilm(f3);
 	repo.deleteFilm(f5);
 
+	// There should be 2 movies in the list now
 	assert(repo.getFilme().size() == 2);
 
-	assert(repo.getFilm_byIndex(0).getTitel() == "The Maze Runner");
-	assert(repo.getFilm_byIndex(0).getGenre() == "Action, Mysterym, Sci-Fi");
-	assert(repo.getFilm_byIndex(0).getJahr() == 2014);
-	assert(repo.getFilm_byIndex(0).getLikes() == 401481);
-	assert(repo.getFilm_byIndex(0).getTrailer() == "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
+	assert(repo.getFilm_byIndex(0) == f2);
+	assert(repo.getFilm_byIndex(1) == f4);
 
-	assert(repo.getFilm_byIndex(1).getTitel() == "Shutter Island");
-	assert(repo.getFilm_byIndex(1).getGenre() == "Mystery, Thriller");
-	assert(repo.getFilm_byIndex(1).getJahr() == 2010);
-	assert(repo.getFilm_byIndex(1).getLikes() == 1065137);
-	assert(repo.getFilm_byIndex(1).getTrailer() == "https://www.youtube.com/watch?v=5iaYLCiq5RM");
-
-
+	// Testing Delete - Checking the output of the function when deleting a non existent movie
 	repo.deleteFilm(f1);
 	repo.deleteFilm(f2);
 	repo.deleteFilm(f3);
@@ -111,6 +81,7 @@ void Tests::testUpdate() {
 	repo.addFilm(f4);
 	repo.addFilm(f5);
 
+	// Updateing something from each film and then checking 
 	repo.updateTitel(f1, "New Titel");
 	assert(repo.getFilm_byIndex(0).getTitel() == "New Titel");
 
@@ -126,7 +97,7 @@ void Tests::testUpdate() {
 	repo.updateTrailer(f5, "New Trailer");
 	assert(repo.getFilm_byIndex(4).getTrailer() == "New Trailer");
 
-
+	// Testing Update - Checking that no error will be given when trying to update inexistent movie
 	repo.deleteFilm(f1);
 	repo.updateTitel(f1, "New new Titel");
 	repo.updateGenre(f1, "New new Genre");
@@ -148,37 +119,14 @@ void Tests::testAdministrator() {
 	admin.addFilm(f4);
 	admin.addFilm(f5);
 
+	// There should be 5 movies in the list now
 	assert(admin.getFilmRepo().getFilme().size() == 5);
 
-	assert(admin.getFilmRepo().getFilm_byIndex(0).getTitel() == "The Platform");
-	assert(admin.getFilmRepo().getFilm_byIndex(0).getGenre() == "Horror, Sci-Fi, Thriller");
-	assert(admin.getFilmRepo().getFilm_byIndex(0).getJahr() == 2019);
-	assert(admin.getFilmRepo().getFilm_byIndex(0).getLikes() == 76190);
-	assert(admin.getFilmRepo().getFilm_byIndex(0).getTrailer() == "https://www.youtube.com/watch?v=RlfooqeZcdY");
-
-	assert(admin.getFilmRepo().getFilm_byIndex(1).getTitel() == "The Maze Runner");
-	assert(admin.getFilmRepo().getFilm_byIndex(1).getGenre() == "Action, Mysterym, Sci-Fi");
-	assert(admin.getFilmRepo().getFilm_byIndex(1).getJahr() == 2014);
-	assert(admin.getFilmRepo().getFilm_byIndex(1).getLikes() == 401481);
-	assert(admin.getFilmRepo().getFilm_byIndex(1).getTrailer() == "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
-
-	assert(admin.getFilmRepo().getFilm_byIndex(2).getTitel() == "Zodiac");
-	assert(admin.getFilmRepo().getFilm_byIndex(2).getGenre() == "Crime, Drama, Mystery");
-	assert(admin.getFilmRepo().getFilm_byIndex(2).getJahr() == 2007);
-	assert(admin.getFilmRepo().getFilm_byIndex(2).getLikes() == 424385);
-	assert(admin.getFilmRepo().getFilm_byIndex(2).getTrailer() == "https://www.youtube.com/watch?v=yNncHPl1UXg");
-
-	assert(admin.getFilmRepo().getFilm_byIndex(3).getTitel() == "Shutter Island");
-	assert(admin.getFilmRepo().getFilm_byIndex(3).getGenre() == "Mystery, Thriller");
-	assert(admin.getFilmRepo().getFilm_byIndex(3).getJahr() == 2010);
-	assert(admin.getFilmRepo().getFilm_byIndex(3).getLikes() == 1065137);
-	assert(admin.getFilmRepo().getFilm_byIndex(3).getTrailer() == "https://www.youtube.com/watch?v=5iaYLCiq5RM");
-
-	assert(admin.getFilmRepo().getFilm_byIndex(4).getTitel() == "Se7en");
-	assert(admin.getFilmRepo().getFilm_byIndex(4).getGenre() == "Crime, Drama, Mystery");
-	assert(admin.getFilmRepo().getFilm_byIndex(4).getJahr() == 1995);
-	assert(admin.getFilmRepo().getFilm_byIndex(4).getLikes() == 1364614);
-	assert(admin.getFilmRepo().getFilm_byIndex(4).getTrailer() == "https://www.youtube.com/watch?v=znmZoVkCjpI");
+	assert(admin.getFilmRepo().getFilm_byIndex(0) == f1);
+	assert(admin.getFilmRepo().getFilm_byIndex(1) == f2);
+	assert(admin.getFilmRepo().getFilm_byIndex(2) == f3);
+	assert(admin.getFilmRepo().getFilm_byIndex(3) == f4);
+	assert(admin.getFilmRepo().getFilm_byIndex(4) == f5);
 
 	// Testing Add for Administrator - Checking the output of the function when same film will be added
 	admin.addFilm(f1);
@@ -225,19 +173,11 @@ void Tests::testAdministrator() {
 	admin2.getFilmRepo().deleteFilm(f3);
 	admin2.getFilmRepo().deleteFilm(f5);
 
+	// There should be 2 movies in the list now
 	assert(admin2.getFilmRepo().getFilme().size() == 2);
 
-	assert(admin2.getFilmRepo().getFilm_byIndex(0).getTitel() == "The Maze Runner");
-	assert(admin2.getFilmRepo().getFilm_byIndex(0).getGenre() == "Action, Mysterym, Sci-Fi");
-	assert(admin2.getFilmRepo().getFilm_byIndex(0).getJahr() == 2014);
-	assert(admin2.getFilmRepo().getFilm_byIndex(0).getLikes() == 401481);
-	assert(admin2.getFilmRepo().getFilm_byIndex(0).getTrailer() == "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
-
-	assert(admin2.getFilmRepo().getFilm_byIndex(1).getTitel() == "Shutter Island");
-	assert(admin2.getFilmRepo().getFilm_byIndex(1).getGenre() == "Mystery, Thriller");
-	assert(admin2.getFilmRepo().getFilm_byIndex(1).getJahr() == 2010);
-	assert(admin2.getFilmRepo().getFilm_byIndex(1).getLikes() == 1065137);
-	assert(admin2.getFilmRepo().getFilm_byIndex(1).getTrailer() == "https://www.youtube.com/watch?v=5iaYLCiq5RM");
+	assert(admin2.getFilmRepo().getFilm_byIndex(0) == f2);
+	assert(admin2.getFilmRepo().getFilm_byIndex(1) == f4);
 
 
 	// Testing Delete for Administrator - Checking the output of the function when deleting a non existent movie

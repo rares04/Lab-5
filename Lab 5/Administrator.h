@@ -6,6 +6,9 @@ class Administrator {
 private:
 	FilmRepository FilmRepo;
 public:
+
+    Administrator(FilmRepository FilmRepo);
+
 	// Adds a Film in the list of movies
 	void addFilm(Film);
 

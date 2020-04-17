@@ -38,7 +38,7 @@ public:
 	Film getFilm_byIndex(int index) const;
 
     // Shows the list of movies by genre
-	void showFilme_byGenre(string _genre, Film _film) const;
+    std::vector<Film> showFilme_byGenre(string _genre, int index) const;
 
     // Returns Number of Likes
     double getLikes(Film _film) const;

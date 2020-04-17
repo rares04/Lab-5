@@ -3,7 +3,7 @@
 
 using namespace std;
 
-User::User( FilmRepository repo) {
+User::User(FilmRepository repo) {
     filmRepo = repo;
 }
 
@@ -22,7 +22,7 @@ FilmRepository& User::getFilmRepo() {
 void User::addFilmToWatchList(Film _film) {
     bool found = false;
 
-    for (int i = 0; i < watchList.size() && !found; i++)
+    for (int i = 0; i < watchList.size() && !found; i++)      // Checking if the film exists in the watchList
         if (_film.getTitel() == watchList[i].getTitel() && _film.getJahr() == watchList[i].getJahr())
             found = true;
     if (found)
@@ -33,7 +33,7 @@ void User::addFilmToWatchList(Film _film) {
 
 void User::removeFilmFromWatchList(Film _film) {
     bool found = false;
-    for (int i = 0; i < watchList.size() && found == false; i++)
+    for (int i = 0; i < watchList.size() && found == false; i++)    // Checking if the film exists in the watchList
         if (_film.getTitel() == watchList[i].getTitel() && _film.getJahr() == watchList[i].getJahr()) {
             found = true;
             watchList.erase(watchList.begin() + i);
@@ -46,6 +46,7 @@ void User::showWatchList() const{
     for(int i = 0; i < watchList.size(); i++)
         cout << watchList[i];
 }
+
 void User::like(Film _film){
-    filmRepo.updateLikes(_film,_film.getLikes() + 1);
+    filmRepo.updateLikes(_film, _film.getLikes() + 1);
 }

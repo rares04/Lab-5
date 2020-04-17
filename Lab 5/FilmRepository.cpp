@@ -1,5 +1,6 @@
 #include "FilmRepository.h"
 #include <iostream>
+#include <vector>
 
 using std::cout;
 
@@ -97,11 +98,18 @@ Film FilmRepository::getFilm_byIndex(int index) const {
 	return Filme[index];
 }
 
-void FilmRepository::showFilme_byGenre(string _genre, Film _film) const{
-    for(int i = 0; i < Filme.size(); i++) {
-        if (_film.getGenre() == _genre)
-            cout << Filme[i];
+std::vector<Film> FilmRepository::showFilme_byGenre(string _genre, int index) const{
+    std::vector <Film> filmByGenre;
+    for(int i = 0; i < Filme.size(); i++) { //Goes trough all the films and prints the ones that have a specific genre
+        if (Filme[i].getGenre() == _genre)
+            filmByGenre.push_back(Filme[i]);
     }
+//    if(!filmByGenre.empty()) {
+//        cout << filmByGenre[index];
+//        system(std::string("start " + filmByGenre[index].getTrailer()).c_str());
+//        return filmByGenre[index];
+//    }
+    return filmByGenre;
 }
 
 double FilmRepository::getLikes(Film _film) const{

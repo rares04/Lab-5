@@ -1,5 +1,8 @@
 #include "Administrator.h"
 
+Administrator::Administrator(FilmRepository repo) {
+    FilmRepo = repo;
+}
 
 void Administrator::addFilm(Film _film) {
 	FilmRepo.addFilm(_film);

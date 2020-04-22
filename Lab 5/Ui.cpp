@@ -6,9 +6,16 @@
 
 using namespace std;
 
-void Ui::ui(User user, Administrator admin) {
-    User utilizator = user;
-    Administrator administrator = admin;
+
+Ui::Ui(Administrator _admin, User _user) {
+    admin = _admin;
+    user = _user;
+}
+
+
+void Ui::ui_main() {
+    User utilizator;
+    Administrator administrator;
     string mode = "Select Mode\n"
                   "0. For exit"
                   "\n1. For user\n"
@@ -18,6 +25,8 @@ void Ui::ui(User user, Administrator admin) {
     cout << mode;
     cout << "\nInput: "; cin >> input;
    
+
+    // Validating the input
     Validation valid;
     while (valid.validate_inputUI(input) == false) {
         cout << "\nInput was not correct, please choose between 0, 1 and 2\n" << mode << "\nInput: "; cin >> input;
@@ -25,12 +34,12 @@ void Ui::ui(User user, Administrator admin) {
 
     while(true) {
         if (input == "1") {
-            utilizator = userActions(utilizator);
+            utilizator = userActions();
             cout << mode;
             cout << "\nInput: "; cin >> input;
         }
         if (input == "2"){
-            administrator = adminActions(administrator);
+            administrator = adminActions();
             cout << mode;
             cout << "\nInput: "; cin >> input;
         }
@@ -39,7 +48,7 @@ void Ui::ui(User user, Administrator admin) {
     }
 }
 
-User Ui::userActions(User user){
+User Ui::userActions(){
 
     User utilizator = user;
     string userActions = "1. To show and add movies by genre\n"
@@ -53,16 +62,17 @@ User Ui::userActions(User user){
         cout << "\nInput: ";
         cin >> input;
 
+        // Validating the input
         Validation valid;
         while (valid.validate_inputUI_user(input) == false) {
             cout << "\nInput was not correct, please choose between 1, 2, 3 and 4\n" << userActions << "\nInput: "; cin >> input;
         }
 
         if (input == "1"){
-            utilizator = filmGenre(utilizator);
+            utilizator = filmGenre();
         }
         else if (input == "2"){
-            utilizator = deleteAndRate(utilizator);
+            utilizator = deleteAndRate();
         }
         else if (input == "3"){
             utilizator.showWatchList();
@@ -75,7 +85,7 @@ User Ui::userActions(User user){
     return utilizator;
 }
 
-User Ui::filmGenre(User user){
+User Ui::filmGenre(){
     string next = "1.add to watchList\n"
                   "2.next\n"
                   "3.close\n";
@@ -87,12 +97,13 @@ User Ui::filmGenre(User user){
     vector <Film> filmeByGenre = user.getFilmRepo().showFilme_byGenre(genre, index);
     if(!filmeByGenre.empty()){
         cout << filmeByGenre[index];
-        //system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
+        system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
         while (true) {
             string input;
             cout << next;
             cin >> input;
 
+            // Validating the input
             Validation valid;
             while (valid.validate_inputUI_3(input) == false) {
                 cout << "\nInput was not correct, please choose between  1, 2, and 3\n" << next << "\nInput: "; cin >> input;
@@ -133,7 +144,7 @@ User Ui::filmGenre(User user){
     return user;
 }
 
-User Ui::deleteAndRate(User user){
+User Ui::deleteAndRate(){
     string title;
     cout << "Enter Title to delete: ";
     cin.ignore();
@@ -159,6 +170,7 @@ User Ui::deleteAndRate(User user){
             cout << instructions;
             cin >> input;
 
+            // Validating the input
             Validation valid;
             while (valid.validate_inputUI_3(input) == false) {
                 cout << "\nInput was not correct, please choose between  1, 2, and 3\n" << instructions  << "\nInput: "; cin >> input;
@@ -166,6 +178,7 @@ User Ui::deleteAndRate(User user){
 
             if(input == "1") {
                 user.like(key);
+                admin.updateLikes(key, key.getLikes() + 1);
                 user.removeFilmFromWatchList(key);
                 break;
             }
@@ -181,7 +194,7 @@ User Ui::deleteAndRate(User user){
     return user;
 }
 
-Administrator Ui::adminActions(Administrator admin){
+Administrator Ui::adminActions(){
 
     string adminActions = "1. To Add a film\n"
                           "2. To remove a film\n"
@@ -195,6 +208,7 @@ Administrator Ui::adminActions(Administrator admin){
         cout << "\nInput: ";
         cin >> input;
 
+        // Validating the input
         Validation valid;
         while (valid.validate_inputUI_admin(input) == false) {
             cout << "\nInput was not correct, please choose between 1, 2, 3, 4 and  5\n" << adminActions << "\nInput: "; cin >> input;
@@ -244,8 +258,10 @@ Administrator Ui::adminActions(Administrator admin){
             }
             if (film.getTitel() == "") {
                 cout << "Film not found\n";
-            } else{
+            } 
+            else {
                 admin.deleteFilm(film);
+                user.removeFilmFromWatchList(film);
             }
 
         }
@@ -265,20 +281,34 @@ Administrator Ui::adminActions(Administrator admin){
             }
             while (true) {
                 string input2;
-                cout << "What do you want to edit?\n";
-                cout << "1. To edit title\n"
-                        "2. To edit genre\n"
-                        "3. To edit jahr\n"
-                        "4. To edit likes\n"
-                        "5. To edit Trailer\n"
-                        "Input: ";
+                string instrunctions = "What do you want to edit?\n"
+                                       "1. To edit title\n"
+                                       "2. To edit genre\n"
+                                       "3. To edit jahr\n"
+                                       "4. To edit likes\n"
+                                       "5. To edit Trailer\n"
+                                       "Input: ";
+                cout << instrunctions;
                 cin >> input2;
+
+                // Validating the input
+                while (valid.validate_inputUI_admin(input2) == false) {
+                    cout << "\nInput was not correct, please choose between 1, 2, 3, 4 and  5\n" << instrunctions << "\nInput: "; cin >> input;
+                }
+
                 if (input2 == "1") {
                     string title2;
                     cout << "New Title: ";
                     cin.ignore();
                     getline(cin, title2);
+
                     admin.updateTitel(film, title2);
+                    // The edit will also be visible if the user has this film added in the watchlist
+                    if (user.search_film(film)) {
+                        user.removeFilmFromWatchList(film);
+                        film.setTitel(title2);
+                        user.addFilmToWatchList(film);
+                    }
                     break;
                 }
                 else if (input2 == "2") {
@@ -286,7 +316,14 @@ Administrator Ui::adminActions(Administrator admin){
                     cout << "New Genre: ";
                     cin.ignore();
                     getline(cin, genre);
+
                     admin.updateGenre(film, genre);
+                    // The edit will also be visible if the user has this film added in the watchlist
+                    if (user.search_film(film)) {
+                        user.removeFilmFromWatchList(film);
+                        film.setGenre(genre);
+                        user.addFilmToWatchList(film);
+                    }
                     break;
                 }
                 else if (input2 == "3") {
@@ -301,7 +338,14 @@ Administrator Ui::adminActions(Administrator admin){
                         cout<<"Invalid input\n";
                         cout<<"New Jahr: "; cin >> jahr;
                     }
+
                     admin.updateJahr(film, jahr);
+                    // The edit will also be visible if the user has this film added in the watchlist
+                    if (user.search_film(film)) {
+                        user.removeFilmFromWatchList(film);
+                        film.setJahr(jahr);
+                        user.addFilmToWatchList(film);
+                    }
                     break;
                 }
                 else if (input2 == "4") {
@@ -316,7 +360,14 @@ Administrator Ui::adminActions(Administrator admin){
                         cout<<"Invalid input\n";
                         cout<<"Likes: "; cin >> likes;
                     }
+
                     admin.updateLikes(film, likes);
+                    // The edit will also be visible if the user has this film added in the watchlist
+                    if (user.search_film(film)) {
+                        user.removeFilmFromWatchList(film);
+                        film.setLikes(likes);
+                        user.addFilmToWatchList(film);
+                    }
                     break;
                 }
                 else if (input2 == "5") {
@@ -324,11 +375,15 @@ Administrator Ui::adminActions(Administrator admin){
                     cout << "New Trailer: ";
                     cin.ignore();
                     getline(cin, trailer);
+                    
                     admin.updateTrailer(film, trailer);
+                    // The edit will also be visible if the user has this film added in the watchlist
+                    if (user.search_film(film)) {
+                        user.removeFilmFromWatchList(film);
+                        film.setTrailer(trailer);
+                        user.addFilmToWatchList(film);
+                    }
                     break;
-                }
-                else{
-                    cout<<"Invalid input\n";
                 }
             }
         }

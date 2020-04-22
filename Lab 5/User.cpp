@@ -3,6 +3,11 @@
 
 using namespace std;
 
+
+User::User() {
+
+}
+
 User::User(FilmRepository repo) {
     filmRepo = repo;
 }
@@ -24,7 +29,7 @@ void User::addFilmToWatchList(Film _film) {
 
     for (int i = 0; i < watchList.size() && !found; i++)      // Checking if the film exists in the watchList
         if (_film.getTitel() == watchList[i].getTitel() && _film.getJahr() == watchList[i].getJahr())
-            found = true;
+            found = true;  // Looping stops, movies was found
     if (found)
         cout << "\tFilm " << _film.getTitel() << " existiert schon, nichts wird eingefugt\n";
     else
@@ -35,16 +40,25 @@ void User::removeFilmFromWatchList(Film _film) {
     bool found = false;
     for (int i = 0; i < watchList.size() && found == false; i++)    // Checking if the film exists in the watchList
         if (_film.getTitel() == watchList[i].getTitel() && _film.getJahr() == watchList[i].getJahr()) {
-            found = true;
-            watchList.erase(watchList.begin() + i);
+            found = true;  // Looping stops, movies was found
+            watchList.erase(watchList.begin() + i);  // Film be erased form the watchlist
             return;
         }
     cout << "\tFilm " << _film.getTitel() << " existiert nicht, nichts wird geloscht\n";
 }
 
 void User::showWatchList() const{
+    // Shows all movies from the watchlist
     for(int i = 0; i < watchList.size(); i++)
         cout << watchList[i];
+}
+
+bool User::search_film(Film _film) const {
+    // Function returns true if _film exists in the watchlist
+    for (int i = 0; i < watchList.size(); i++)    // Checking if the film exists in the watchList
+        if (_film.getTitel() == watchList[i].getTitel() && _film.getJahr() == watchList[i].getJahr())
+            return true;
+    return false;
 }
 
 void User::like(Film _film){

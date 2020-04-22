@@ -1,5 +1,11 @@
 #include "Administrator.h"
 
+
+Administrator::Administrator() {
+
+}
+
+
 Administrator::Administrator(FilmRepository repo) {
     FilmRepo = repo;
 }

@@ -14,6 +14,7 @@ int main() {
 	t.testUser();
     cout << "\nTest End\n\n";
 
+	// The list starts with 10 movies already added
     Film f1("The Platform", "Thriller", 2019, 76190, "https://www.youtube.com/watch?v=RlfooqeZcdY");
     Film f2("The Maze Runner", "Action", 2014, 401481, "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
     Film f3("Zodiac", "Crime", 2007, 424385, "https://www.youtube.com/watch?v=yNncHPl1UXg");
@@ -40,10 +41,11 @@ int main() {
     User user = User(filmRepo);
     Administrator admin = Administrator(filmRepo);
 
+	// User starts with 2 films in the watchlist
     user.addFilmToWatchList(f1);
     user.addFilmToWatchList(f2);
 
 
-	Ui a;
-	a.ui(user, admin);
+	Ui a(admin, user);
+	a.ui_main();
 }

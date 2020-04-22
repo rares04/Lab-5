@@ -6,6 +6,7 @@ class Administrator {
 private:
 	FilmRepository FilmRepo;
 public:
+	Administrator();
 
     Administrator(FilmRepository FilmRepo);
 

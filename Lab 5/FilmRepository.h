@@ -37,6 +37,9 @@ public:
 	// Returns a movie at a specified index in the list
 	Film getFilm_byIndex(int index) const;
 
+	// Returns a movie at a specified index in the list
+	Film getFilm_byFilm(Film _film) const;
+
     // Shows the list of movies by genre
     std::vector<Film> showFilme_byGenre(string _genre, int index) const;
 

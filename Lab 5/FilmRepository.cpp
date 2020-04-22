@@ -98,6 +98,15 @@ Film FilmRepository::getFilm_byIndex(int index) const {
 	return Filme[index];
 }
 
+
+Film FilmRepository::getFilm_byFilm(Film _film) const {
+	for (int i = 0; i < Filme.size(); i++) { 
+		if (Filme[i] == _film)
+			return Filme[i];
+	}
+}
+
+
 std::vector<Film> FilmRepository::showFilme_byGenre(string _genre, int index) const{
     std::vector <Film> filmByGenre;
     for(int i = 0; i < Filme.size(); i++) { //Goes trough all the films and prints the ones that have a specific genre

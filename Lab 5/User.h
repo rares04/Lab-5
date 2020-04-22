@@ -11,6 +11,9 @@ private:
     vector <Film> watchList;
     FilmRepository filmRepo;
 public:
+    // Default constructor, nothing will be initialized, made to pass User as attribute in UI
+    User();
+
     User(FilmRepository FilmRepo);
 
     // Return the watchList
@@ -30,6 +33,9 @@ public:
 
     // Adds 1 like to the film
     void like(Film _film);
+
+    // Searches for the film in the watchlist
+    bool search_film(Film _film) const;
 
     // Returns the adress of the FilmRepository attribute
     FilmRepository& getFilmRepo();

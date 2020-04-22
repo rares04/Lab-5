@@ -9,12 +9,13 @@ class Ui {
 
 private:
     vector <User> userList;
-
+    Administrator admin;
+    User user;
 public:
-    void UI(vector <User> userList);
-    void ui(User user, Administrator admin);
-    User userActions(User user);
-    Administrator adminActions(Administrator admin);
-    User filmGenre(User user);
-    User deleteAndRate(User user);
+    Ui(Administrator _admin, User _user);
+    void ui_main();
+    User userActions();
+    Administrator adminActions();
+    User filmGenre();
+    User deleteAndRate();
 };

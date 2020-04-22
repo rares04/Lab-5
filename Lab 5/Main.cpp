@@ -14,7 +14,7 @@ int main() {
 	t.testUser();
     cout << "\nTest End\n\n";
 
-    Film f1("The Platform", "Thriler", 2019, 76190, "https://www.youtube.com/watch?v=RlfooqeZcdY");
+    Film f1("The Platform", "Thriller", 2019, 76190, "https://www.youtube.com/watch?v=RlfooqeZcdY");
     Film f2("The Maze Runner", "Action", 2014, 401481, "https://www.youtube.com/watch?v=AwwbhhjQ9Xk");
     Film f3("Zodiac", "Crime", 2007, 424385, "https://www.youtube.com/watch?v=yNncHPl1UXg");
     Film f4("Shutter Island", "Mystery", 2010, 1065137, "https://www.youtube.com/watch?v=5iaYLCiq5RM");

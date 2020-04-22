@@ -2,6 +2,7 @@
 #include "Administrator.h"
 #include <iostream>
 #include <algorithm>
+#include "Validation.h"
 
 using namespace std;
 
@@ -9,22 +10,32 @@ void Ui::ui(User user, Administrator admin) {
     User utilizator = user;
     Administrator administrator = admin;
     string mode = "Select Mode\n"
+                  "0. For exit"
                   "\n1. For user\n"
                   "2. For admin";
 
+    string input;
+    cout << mode;
+    cout << "\nInput: "; cin >> input;
+   
+    Validation valid;
+    while (valid.validate_inputUI(input) == false) {
+        cout << "\nInput was not correct, please choose between 0, 1 and 2\n" << mode << "\nInput: "; cin >> input;
+    }
+
     while(true) {
-        string input;
-        cout << mode;
-        cout << "\nInput: "; cin >> input;
         if (input == "1") {
             utilizator = userActions(utilizator);
+            cout << mode;
+            cout << "\nInput: "; cin >> input;
         }
         if (input == "2"){
             administrator = adminActions(administrator);
+            cout << mode;
+            cout << "\nInput: "; cin >> input;
         }
-        else{
+        if (input == "0")
             break;
-        }
     }
 }
 
@@ -41,6 +52,12 @@ User Ui::userActions(User user){
         cout << "\n" << userActions;
         cout << "\nInput: ";
         cin >> input;
+
+        Validation valid;
+        while (valid.validate_inputUI_user(input) == false) {
+            cout << "\nInput was not correct, please choose between 1, 2, 3 and 4\n" << userActions << "\nInput: "; cin >> input;
+        }
+
         if (input == "1"){
             utilizator = filmGenre(utilizator);
         }
@@ -53,15 +70,12 @@ User Ui::userActions(User user){
         else if(input == "4"){
             break;
         }
-        else{
-            cout<<"invalid input\n";
-        }
     }
+
     return utilizator;
 }
 
 User Ui::filmGenre(User user){
-    int input;
     string next = "1.add to watchList\n"
                   "2.next\n"
                   "3.close\n";
@@ -70,9 +84,6 @@ User Ui::filmGenre(User user){
     int index = 0;
     cout << "Type Genre:";
     cin >> genre;
-    if(genre == "0") {
-        user.getFilmRepo().showFilme();
-    }
     vector <Film> filmeByGenre = user.getFilmRepo().showFilme_byGenre(genre, index);
     if(!filmeByGenre.empty()){
         cout << filmeByGenre[index];
@@ -81,6 +92,11 @@ User Ui::filmGenre(User user){
             string input;
             cout << next;
             cin >> input;
+
+            Validation valid;
+            while (valid.validate_inputUI_3(input) == false) {
+                cout << "\nInput was not correct, please choose between  1, 2, and 3\n" << next << "\nInput: "; cin >> input;
+            }
 
             if (input == "1"){
                 std::vector<Film> v = user.getWatchList();
@@ -96,23 +112,24 @@ User Ui::filmGenre(User user){
             }
             else if (input == "2") {
                 if (index == filmeByGenre.size()-1){
+                    cout << "\nThere are no more movies with this Genre\n";
                     break;
                 }
                 index++;
                 cout << filmeByGenre[index];
-                //system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
+                system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
 
             }
             else if (input == "3") {
                 break;
             }
-            else{
-                cout<<"Invalid input\n";
-            }
-
- 
         }
     }
+    else {
+        cout << "\nNo movie with this Genre exists, a list with all the available movies will appear\n";
+        user.getFilmRepo().showFilme();
+    }
+
     return user;
 }
 
@@ -135,11 +152,18 @@ User Ui::deleteAndRate(User user){
         while(true){
             cout<<"Do you want to rate the film with a like?\n";
             string input;
-            cout<<"1. Yes\n"
-                  "2. Just delete\n"
-                  "3. Cancel\n"
-                  "Input: ";
+            string instructions = "1. Yes\n"
+                                  "2. Just delete\n"
+                                  "3. Cancel\n"
+                                  "Input: ";
+            cout << instructions;
             cin >> input;
+
+            Validation valid;
+            while (valid.validate_inputUI_3(input) == false) {
+                cout << "\nInput was not correct, please choose between  1, 2, and 3\n" << instructions  << "\nInput: "; cin >> input;
+            }
+
             if(input == "1") {
                 user.like(key);
                 user.removeFilmFromWatchList(key);
@@ -151,9 +175,6 @@ User Ui::deleteAndRate(User user){
             }
             else if(input == "3"){
                 break;
-            }
-            else{
-                cout<<"invalid input\n";
             }
         }
     }
@@ -173,6 +194,12 @@ Administrator Ui::adminActions(Administrator admin){
         cout << "\n" << adminActions;
         cout << "\nInput: ";
         cin >> input;
+
+        Validation valid;
+        while (valid.validate_inputUI_admin(input) == false) {
+            cout << "\nInput was not correct, please choose between 1, 2, 3, 4 and  5\n" << adminActions << "\nInput: "; cin >> input;
+        }
+
         if (input == "1"){
             string title;
             string genre;
@@ -310,9 +337,6 @@ Administrator Ui::adminActions(Administrator admin){
         }
         else if(input == "5"){
             break;
-        }
-        else{
-            cout<<"Invalid input\n";
         }
     }
     return admin;

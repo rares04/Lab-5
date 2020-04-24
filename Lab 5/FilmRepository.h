@@ -31,14 +31,14 @@ public:
 	// Shows the list of movies
 	void showFilme() const;
 
-	// Returns the lsit of movies
+	// Returns the list of movies
 	std::vector<Film> getFilme() const;
 
 	// Returns a movie at a specified index in the list
 	Film getFilm_byIndex(int index) const;
 
 	// Returns a movie at a specified index in the list
-	Film getFilm_byFilm(Film _film) const;
+	Film getFilm_byMatch(Film _film) const;
 
     // Shows the list of movies by genre
     std::vector<Film> showFilme_byGenre(string _genre, int index) const;

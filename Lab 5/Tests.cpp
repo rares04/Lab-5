@@ -203,9 +203,6 @@ void Tests::testUser()  {
     repo.addFilm(f6);
 
     User user = User(repo);
-//    assert(f6.getLikes() == 5);
-//    repo.getFilme()[5].setLikes(2);
-//    assert(f6.getLikes() == 2);
 
     // Test add, remove pt watchList
     user.addFilmToWatchList(f1);
@@ -216,8 +213,62 @@ void Tests::testUser()  {
     assert(user.getWatchList().size() == 2);
 
     // Test like
-
     assert(user.getFilmRepo().getFilm_byIndex(0).getLikes() == 76190);
     user.like(f1);
     assert(user.getFilmRepo().getFilm_byIndex(0).getLikes() == 76191);
+
+	// Test search Function
+	assert(user.search_film(f10) == false);
+	assert(user.search_film(f9) == false);
+	assert(user.search_film(f2) == true);
+}
+
+
+void Tests::test_getFilm_byIndex() {
+	FilmRepository repo;
+
+	repo.addFilm(f1);
+	repo.addFilm(f2);
+	repo.addFilm(f3);
+	repo.addFilm(f4);
+	repo.addFilm(f5);
+	repo.addFilm(f6);
+	repo.addFilm(f7);
+	repo.addFilm(f8);
+	repo.addFilm(f9);
+	repo.addFilm(f10);
+
+	Film get1 = repo.getFilm_byIndex(0);
+	assert(get1.getTitel() == "The Platform" and get1.getJahr() == 2019 and get1.getGenre() == "Thriller" and get1.getLikes() == 76190);
+	
+	Film get2 = repo.getFilm_byIndex(8);
+	assert(get1.getTitel() == "The Wolf of Wall Street" and get1.getJahr() == 2013 and get1.getGenre() == "Biography" and get1.getLikes() == 7);
+}
+
+
+void Tests::test_getFilm_byMatch(Film _film) {
+	FilmRepository repo;
+
+	repo.addFilm(f1);
+	repo.addFilm(f2);
+	repo.addFilm(f3);
+	
+	Film get1 = repo.getFilm_byMatch(f1);
+	assert(get1 == f1);
+	Film get2 = repo.getFilm_byMatch(f2);
+	assert(get2 == f2);
+	Film get3 = repo.getFilm_byMatch(f3);
+	assert(get3 == f3);
+}
+
+
+void test_getLikes(Film _film) {
+	FilmRepository repo;
+
+	repo.addFilm(f1);
+	repo.addFilm(f2);
+	repo.addFilm(f3);
+
+	double likes = repo.getLikes(f2);
+	assert(likes == f2.getLikes() and likes == 401481);
 }

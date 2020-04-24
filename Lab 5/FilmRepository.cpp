@@ -84,7 +84,7 @@ void FilmRepository::deleteFilm(Film _film) {
 
 
 void FilmRepository::showFilme() const {
-	for (int i = 0; i < Filme.size(); i++)
+	for (int i = 0; i < Filme.size(); i++)  // Goes trough all the vector and outputs the films (<< Operator wurde uberladen)
 		cout << Filme[i];
 }
 
@@ -99,17 +99,16 @@ Film FilmRepository::getFilm_byIndex(int index) const {
 }
 
 
-Film FilmRepository::getFilm_byFilm(Film _film) const {
-	for (int i = 0; i < Filme.size(); i++) { 
+Film FilmRepository::getFilm_byMatch(Film _film) const {
+	for (int i = 0; i < Filme.size(); i++)   // Searches for the film in the list with movies, return the films if found
 		if (Filme[i] == _film)
 			return Filme[i];
-	}
 }
 
 
 std::vector<Film> FilmRepository::showFilme_byGenre(string _genre, int index) const{
-    std::vector <Film> filmByGenre;
-    for(int i = 0; i < Filme.size(); i++) { //Goes trough all the films and prints the ones that have a specific genre
+    std::vector <Film> filmByGenre;  // A list with movies that have the specified Genre
+    for(int i = 0; i < Filme.size(); i++) {   // Searches for movies with the specified _genre and adds them to a list 
         if (Filme[i].getGenre() == _genre)
             filmByGenre.push_back(Filme[i]);
     }
@@ -118,11 +117,12 @@ std::vector<Film> FilmRepository::showFilme_byGenre(string _genre, int index) co
 //        system(std::string("start " + filmByGenre[index].getTrailer()).c_str());
 //        return filmByGenre[index];
 //    }
-    return filmByGenre;
+    return filmByGenre; 
 }
 
+
 double FilmRepository::getLikes(Film _film) const{
-    for(int i = 0; i < Filme.size(); i++)
+    for(int i = 0; i < Filme.size(); i++)  // Searches for the movie given as parameter and returns the number of likes
         if(_film.getTitel() == Filme[i].getTitel() && _film.getJahr() == Filme[i].getJahr())
             return _film.getLikes();
     return 0;

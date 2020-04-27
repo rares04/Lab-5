@@ -27,3 +27,13 @@ bool Validation::validate_inputUI_admin(std::string input) {
 		return false;
 	return true;
 }
+
+bool Validation::validate_inputUi_number(const std::string& s){
+    std::string::const_iterator it = s.begin();
+    while (it != s.end() && std::isdigit(*it)) ++it;
+    return !s.empty() && it == s.end();
+}
+
+bool Validation::validate_inputUi_jahr(double jahr){
+    return jahr > 0 && jahr <= 2020 && jahr == (int)jahr;
+}

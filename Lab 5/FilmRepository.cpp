@@ -106,17 +106,12 @@ Film FilmRepository::getFilm_byMatch(Film _film) const {
 }
 
 
-std::vector<Film> FilmRepository::showFilme_byGenre(string _genre, int index) const{
+std::vector<Film> FilmRepository::getFilme_byGenre(string _genre) const{
     std::vector <Film> filmByGenre;  // A list with movies that have the specified Genre
     for(int i = 0; i < Filme.size(); i++) {   // Searches for movies with the specified _genre and adds them to a list 
         if (Filme[i].getGenre() == _genre)
             filmByGenre.push_back(Filme[i]);
     }
-//    if(!filmByGenre.empty()) {
-//        cout << filmByGenre[index];
-//        system(std::string("start " + filmByGenre[index].getTrailer()).c_str());
-//        return filmByGenre[index];
-//    }
     return filmByGenre; 
 }
 

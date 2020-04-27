@@ -73,5 +73,5 @@ bool User::search_film(Film _film) const {
 
 
 void User::like(Film _film){
-    filmRepo.updateLikes(_film, _film.getLikes() + 1);
+    filmRepo.updateLikes(_film, _film.getLikes() + 1); //adds one like to the film
 }

@@ -41,7 +41,7 @@ public:
 	Film getFilm_byMatch(Film _film) const;
 
     // Shows the list of movies by genre
-    std::vector<Film> showFilme_byGenre(string _genre, int index) const;
+    std::vector<Film> getFilme_byGenre(string _genre) const;
 
     // Returns Number of Likes
     double getLikes(Film _film) const;

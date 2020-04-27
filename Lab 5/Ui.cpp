@@ -14,6 +14,7 @@ Ui::Ui(Administrator _admin, User _user) {
 
 
 void Ui::ui_main() {
+    //Infos for the mode, and selection of the mode
     User utilizator;
     Administrator administrator;
     string mode = "Select Mode\n"
@@ -49,7 +50,8 @@ void Ui::ui_main() {
 }
 
 User Ui::userActions(){
-
+    // Infos for admin actions
+    // 4 Possible Operations with 4 if statements
     User utilizator = user;
     string userActions = "1. To show and add movies by genre\n"
                          "2. To rate a movie and delete it\n"
@@ -86,6 +88,7 @@ User Ui::userActions(){
 }
 
 User Ui::filmGenre(){
+    //3 Possible operations for searching by genre
     string next = "1.add to watchList\n"
                   "2.next\n"
                   "3.close\n";
@@ -94,9 +97,11 @@ User Ui::filmGenre(){
     int index = 0;
     cout << "Type Genre:";
     cin >> genre;
-    vector <Film> filmeByGenre = user.getFilmRepo().showFilme_byGenre(genre, index);
+    // gets all film from the typed genre
+    vector <Film> filmeByGenre = user.getFilmRepo().getFilme_byGenre(genre);
     if(!filmeByGenre.empty()){
         cout << filmeByGenre[index];
+        //Opens thr browser with the trailer
         system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
         while (true) {
             string input;
@@ -128,6 +133,7 @@ User Ui::filmGenre(){
                 }
                 index++;
                 cout << filmeByGenre[index];
+                //Opens the browser with the trailer
                 system(std::string("start " + filmeByGenre[index].getTrailer()).c_str());
 
             }
@@ -145,6 +151,7 @@ User Ui::filmGenre(){
 }
 
 User Ui::deleteAndRate(){
+    // checks if a film is in the watchlist, and if it is ,then asks the user if he wants to delete it or rate it
     string title;
     cout << "Enter Title to delete: ";
     cin.ignore();
@@ -160,6 +167,7 @@ User Ui::deleteAndRate(){
     if (!(std::find(v.begin(), v.end(), key) != v.end())) {
         cout << "Is not in the watchList\n";
     } else{
+        // 3 Possible operations, with 3 if statements
         while(true){
             cout<<"Do you want to rate the film with a like?\n";
             string input;
@@ -195,7 +203,7 @@ User Ui::deleteAndRate(){
 }
 
 Administrator Ui::adminActions(){
-
+    // infos about the 5 admin operations
     string adminActions = "1. To Add a film\n"
                           "2. To remove a film\n"
                           "3. To edit a film\n"
@@ -213,7 +221,7 @@ Administrator Ui::adminActions(){
         while (valid.validate_inputUI_admin(input) == false) {
             cout << "\nInput was not correct, please choose between 1, 2, 3, 4 and  5\n" << adminActions << "\nInput: "; cin >> input;
         }
-
+        // reads all the film atributes from input and add the film to the repo
         if (input == "1"){
             string title;
             string genre;
@@ -221,15 +229,30 @@ Administrator Ui::adminActions(){
             double likes;
             string trailer;
             cout<<"Enter Title: "; cin >> title;
+            // Validating the input
+            Validation valid;
+            while (valid.validate_inputUi_number(title) == true) {
+                cout << "\nInput was not correct, please choose a non numeric name\n" << "\nEnter Title: "; cin >> title;
+            }
             cout<<"Enter Genre: "; cin >> genre;
+            // Validating the input
+            while (valid.validate_inputUi_number(genre) == true) {
+                cout << "\nInput was not correct, please choose a non numeric genre\n" <<"\nEnter Genre: "; cin >> genre;
+            }
             cout<<"Enter Jahr: "; cin >> jahr;
-            while(!cin) // or if(cin.fail())
+            // Validating the input
+            while(!cin || valid.validate_inputUi_jahr(jahr) == false) // or if(cin.fail())
             {
                 // user didn't input a number
-                cin.clear(); // reset failbit
-                cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
-                cout<<"Invalid input\n";
-                cout<<"Enter Jahr: "; cin >> jahr;
+                if(!cin){
+                    cin.clear(); // reset failbit
+                    cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); //skip bad input
+                    cout<<"Invalid input\n";
+                    cout<<"Enter Jahr: "; cin >> jahr;
+
+                } else if (valid.validate_inputUi_jahr(jahr) == false) {
+                    cout << "\nInput was not correct, please choose a correct number\n" << "\nEnter Jahr: "; cin >> jahr;
+                }
             }
             cout<<"Enter Likes: "; cin >> likes;
             while(!cin) // or if(cin.fail())
@@ -241,9 +264,14 @@ Administrator Ui::adminActions(){
                 cout<<"Enter Likes: "; cin >> likes;
             }
             cout<<"Enter Trailer: "; cin >> trailer;
+            // Validating the input
+            while (valid.validate_inputUi_number(title) == true) {
+                cout << "\nInput was not correct, please choose a correct url\n" << "\nEnter Trailer "; cin >> trailer;
+            }
             Film film = Film(title, genre, jahr, likes, trailer);
             admin.addFilm(film);
         }
+        // Checks if the typed film is in the repository and if it is, deletes it
         else if (input == "2") {
             string title;
             Film film = Film("", "", 0, 0, "");
@@ -264,7 +292,7 @@ Administrator Ui::adminActions(){
                 user.removeFilmFromWatchList(film);
             }
 
-        }
+        }// Checks if the film exists, and if it does, edits its attributes
         else if (input == "3"){
             string title;
             Film film = Film("","",0,0,"");
@@ -281,6 +309,7 @@ Administrator Ui::adminActions(){
             }
             while (true) {
                 string input2;
+                //infos for editing a film
                 string instrunctions = "What do you want to edit?\n"
                                        "1. To edit title\n"
                                        "2. To edit genre\n"
@@ -386,7 +415,7 @@ Administrator Ui::adminActions(){
                     break;
                 }
             }
-        }
+        }// Prints all the films
         else if (input == "4"){
             admin.showFilme();
         }
